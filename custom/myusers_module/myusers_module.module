@@ -1,0 +1,59 @@
+<?php
+
+use Drupal\Core\Entity\EntityInterface;
+use Drupal\Core\Form\FormStateInterface;
+
+/**
+ * Implements hook_theme().
+ */
+function myusers_module_theme($existing, $type, $theme, $path){
+  return [
+    'myusers_module_add_users_form' => [
+      'render element' => 'form',
+    ],
+  ];
+}
+
+/**
+ * Implements hook_user_insert().
+ */
+function myusers_module_user_insert( $entity){
+  $connection = \Drupal::service('database');
+  $result = $connection->insert('log_registers')
+    ->fields([
+      'date' => date('Y-m-d'),
+      'ip' => \Drupal::request()->getClientIp(),
+      'uid' => $entity->id(),
+      'tipo_log' => 'register',
+    ])
+    ->execute();
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function myusers_module_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+
+  if ($form_id == 'user_login_form') {
+    $form['#validate'][] = '_myusers_module_log_register';
+  }
+}
+
+function _myusers_module_log_register(&$form, FormStateInterface $form_state) {
+  $values = $form_state->getValues();
+  $username = $values['name'];
+  $password = $values['pass'];
+  $uid = \Drupal::service('user.auth')->authenticate($username, $password);
+  
+  if (!empty($uid)) {
+    $connection = \Drupal::service('database');
+    $result = $connection->insert('log_registers')
+      ->fields([
+        'date' => date('Y-m-d'),
+        'ip' => \Drupal::request()->getClientIp(),
+        'uid' => $uid,
+        'tipo_log' => 'login',
+      ])
+      ->execute();
+  }
+}

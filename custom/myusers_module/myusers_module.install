@@ -1,0 +1,64 @@
+<?php
+
+/**
+* Implements hook_schema().
+*/
+function myusers_module_schema() {
+  $schema['custom_users'] = array(
+    'description' => 'Users Table',
+    'fields' => array(
+      'tid' => [
+        'type' => 'serial',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'description' => 'Unique User Id.',
+      ],
+      'name' => array(
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE,
+        'description' => t('User Name.'),
+      ),
+    ),
+    'primary key' => array('tid'),
+  );
+
+  $schema['log_registers'] = array(
+    'description' => 'Log registers',
+    'fields' => array(
+      'lid' => [
+        'type' => 'serial',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'description' => 'Unique Register Id.',
+      ],
+      'date' => array(
+        'type' => 'varchar',
+        'length' => 12,
+        'not null' => TRUE,
+        'description' => t('Date'),
+      ),
+      'ip' => array(
+        'type' => 'varchar',
+        'length' => 50,
+        'not null' => TRUE,
+        'description' => t('Ip Adress'),
+      ),
+      'uid' => array(
+        'type' => 'varchar',
+        'length' => 50,
+        'not null' => TRUE,
+        'description' => t('User Id'),
+      ),
+      'tipo_log' => array(
+        'type' => 'varchar',
+        'length' => 10,
+        'not null' => TRUE,
+        'description' => t('Log Type'),
+      ),
+    ),
+    'primary key' => array('lid'),
+  );
+
+  return $schema;
+}

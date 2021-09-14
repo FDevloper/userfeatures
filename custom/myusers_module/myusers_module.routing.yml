@@ -1,0 +1,20 @@
+myusers_module.add_users_form:
+  path: /user/register
+  defaults:
+    _title: 'Add Users Form'
+    _form: \Drupal\myusers_module\Form\AddUserForm
+  requirements:
+    _role: 'authenticated'
+myusers_module.users_table:
+  path: '/user/consult'
+  defaults:
+    _title: 'Show Users'
+    _controller: '\Drupal\myusers_module\Controller\UsersPage::getUsers'
+  requirements:
+    _role: 'authenticated'
+myusers_module.download_users:
+  path: '/user/consult/excel'
+  defaults:
+    _controller: '\Drupal\myusers_module\Controller\UserFileDownload::downloadFile'
+  requirements:
+    _role: 'authenticated'

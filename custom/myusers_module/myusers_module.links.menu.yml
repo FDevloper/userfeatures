@@ -1,0 +1,18 @@
+myusers_module.add_user:
+  title: 'Add User'
+  description: 'Add User'
+  parent: main
+  menu_name: main
+  route_name: myusers_module.add_users_form
+myusers_module.show_users:
+  title: 'Show Users'
+  description: 'Show Users'
+  parent: main
+  menu_name: main
+  route_name: myusers_module.users_table
+myusers_module.download_excel:
+  title: 'Download Excel'
+  description: 'Download Excel'
+  parent: main
+  menu_name: main
+  route_name: myusers_module.download_users
