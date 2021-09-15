@@ -18,3 +18,10 @@ myusers_module.download_users:
     _controller: '\Drupal\myusers_module\Controller\UserFileDownload::downloadFile'
   requirements:
     _role: 'authenticated'
+myusers_module.import_users:
+  path: '/user/import'
+  defaults:
+    _title: 'Import Users'
+    _form: \Drupal\myusers_module\Form\UserImportForm
+  requirements:
+    _role: 'authenticated'

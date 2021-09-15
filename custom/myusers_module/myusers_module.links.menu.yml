@@ -16,3 +16,9 @@ myusers_module.download_excel:
   parent: main
   menu_name: main
   route_name: myusers_module.download_users
+myusers_module.import_from_file:
+  title: 'Import Data'
+  description: 'Import Users Data'
+  parent: main
+  menu_name: main
+  route_name: myusers_module.import_users
